@@ -1,11 +1,25 @@
 //  import { createStore } from "redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit"; //more powerful than reducer
 
-const initialState = { counter: 0, showCounter: true };
-
+//  ***Auth
+const authInitialState = { isLoggedIn: false };
+const authSlice = createSlice({
+    name: 'auth',
+    initialState: authInitialState,
+    reducers: {
+        login(state){
+            state.isLoggedIn = true;
+        },
+        logout(state){
+            state.isLoggedIn = false;
+        }
+    }
+});
+//  ***Counter
+const counterInitialState = { counter: 0, showCounter: true };
 const counterSlice = createSlice({
     name: 'counter',
-    initialState,
+    initialState: counterInitialState,
     reducers: {
         increment(state){
             state.counter++;
@@ -52,9 +66,13 @@ const counterSlice = createSlice({
 };*/
 //  2. Create store
 const store = configureStore({
-    reducer: counterSlice.reducer
+    reducer: {
+        auth: authSlice.reducer,
+        counter: counterSlice.reducer,
+    }
 });
 //  3. Connect react app with redux store
 export default store;
 //  redux toolkit export
+export const authActions = authSlice.actions;
 export const counterActions = counterSlice.actions;

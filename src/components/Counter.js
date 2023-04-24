@@ -5,8 +5,8 @@ import { counterActions } from '../store';
 
 const Counter = () => {
   //Extracts only counter property of state object
-  const counter = useSelector(state => state.counter);
-  const showCounter = useSelector(state => state.showCounter);
+  const counter = useSelector(state => state.counter.counter);
+  const showCounter = useSelector(state => state.counter.showCounter);
   const dispatch = useDispatch();
   const incrementCounterHandler = () => {
     dispatch(counterActions.increment());
