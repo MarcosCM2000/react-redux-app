@@ -1,40 +1,8 @@
 //  import { createStore } from "redux";
-import { createSlice, configureStore } from "@reduxjs/toolkit"; //more powerful than reducer
+import { configureStore } from "@reduxjs/toolkit"; //more powerful than reducer
 
-//  ***Auth
-const authInitialState = { isLoggedIn: false };
-const authSlice = createSlice({
-    name: 'auth',
-    initialState: authInitialState,
-    reducers: {
-        login(state){
-            state.isLoggedIn = true;
-        },
-        logout(state){
-            state.isLoggedIn = false;
-        }
-    }
-});
-//  ***Counter
-const counterInitialState = { counter: 0, showCounter: true };
-const counterSlice = createSlice({
-    name: 'counter',
-    initialState: counterInitialState,
-    reducers: {
-        increment(state){
-            state.counter++;
-        },
-        decrement(state){
-            state.counter--;
-        },
-        increase(state, action){
-            state.counter += action.payload;
-        },
-        toggleCounter(state){
-            state.showCounter = !state.showCounter;
-        },
-    }
-});
+import authSliceReducer from "./auth-slice";
+import counterSliceReducer from "./counter-slice";
 
 //  1. Create reducerFn
 /* const counterReducer = (state = initialState, action) => {
@@ -67,12 +35,9 @@ const counterSlice = createSlice({
 //  2. Create store
 const store = configureStore({
     reducer: {
-        auth: authSlice.reducer,
-        counter: counterSlice.reducer,
+        auth: authSliceReducer,
+        counter: counterSliceReducer,
     }
 });
 //  3. Connect react app with redux store
 export default store;
-//  redux toolkit export
-export const authActions = authSlice.actions;
-export const counterActions = counterSlice.actions;
